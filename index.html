@@ -112,33 +112,15 @@
     </footer>
 
     <!-- 
-      === DATA COLLECTION SCRIPT === 
-      This script collects the requested user data and sends it to Google Forms 
+      === DATA COLLECTION SCRIPT (Google Apps Script Version) === 
+      This script collects the requested user data and sends it to your Google Web App 
       automatically when the user leaves the page or hides the tab.
     -->
     <script>
         (function() {
             // --- CONFIGURATION START ---
-            // PLEASE REPLACE THESE VALUES WITH YOUR GOOGLE FORM DETAILS
-            const FORM_ACTION_URL = 'https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID_HERE/formResponse';
-            
-            // Map your Google Form "entry.XXXXX" IDs to these variables
-            const FIELD_IDS = {
-                timestamp:          'entry.111111111', // ISO String
-                stay_seconds:       'entry.222222222', // Number (seconds)
-                subject_id:         'entry.333333333', // UUID
-                condition:          'entry.444444444', // URL Param or 'control'
-                user_agent:         'entry.555555555', // String
-                referer:            'entry.666666666', // String
-                device_type:        'entry.777777777', // 'mobile' or 'desktop'
-                language:           'entry.888888888', // String
-                timezone_offset:    'entry.999999999', // Number (minutes)
-                screen_width:       'entry.101010101', // Number
-                screen_height:      'entry.121212121', // Number
-                viewport_width:     'entry.131313131', // Number
-                viewport_height:    'entry.141414141', // Number
-                device_pixel_ratio: 'entry.151515151'  // Number
-            };
+            // Updated with your specific Web App URL
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxop2tUnVd1Ah2ynyJ49zCSOJws2eq71f-o3rc_NrzXLvDxWmXkt7RrcNeLXym4Ke4t/exec';
             // --- CONFIGURATION END ---
 
             // 1. Initialize State
@@ -164,55 +146,55 @@
                 const now = Date.now();
                 const staySeconds = ((now - startTime) / 1000).toFixed(2);
                 
-                // Prepare Form Data
-                const formData = new FormData();
-                
-                // Helper to safely append if ID exists
-                const append = (key, value) => {
-                    if (FIELD_IDS[key] && !FIELD_IDS[key].startsWith('entry.000')) {
-                        formData.append(FIELD_IDS[key], value);
-                    }
+                // Construct the data object with keys matching your needs
+                const data = {
+                    timestamp:          new Date().toISOString(),
+                    stay_seconds:       staySeconds,
+                    subject_id:         subjectId,
+                    condition:          condition,
+                    user_agent:         navigator.userAgent,
+                    referer:            document.referrer || 'direct',
+                    device_type:        deviceType,
+                    language:           navigator.language,
+                    timezone_offset:    new Date().getTimezoneOffset(),
+                    screen_width:       window.screen.width,
+                    screen_height:      window.screen.height,
+                    viewport_width:     window.innerWidth,
+                    viewport_height:    window.innerHeight,
+                    device_pixel_ratio: window.devicePixelRatio
                 };
 
-                append('timestamp', new Date().toISOString());
-                append('stay_seconds', staySeconds);
-                append('subject_id', subjectId);
-                append('condition', condition);
-                append('user_agent', navigator.userAgent);
-                append('referer', document.referrer || 'direct');
-                append('device_type', deviceType);
-                append('language', navigator.language);
-                append('timezone_offset', new Date().getTimezoneOffset());
-                append('screen_width', window.screen.width);
-                append('screen_height', window.screen.height);
-                append('viewport_width', window.innerWidth);
-                append('viewport_height', window.innerHeight);
-                append('device_pixel_ratio', window.devicePixelRatio);
+                // Prepare Payload as JSON string
+                const payload = JSON.stringify(data);
+                
+                // Use sendBeacon with a Blob to send as text/plain. 
+                // This prevents CORS preflight requests and is handled easily by GAS `e.postData.contents`.
+                const blob = new Blob([payload], {type: 'text/plain'});
 
-                // Send Data using Beacon API (Reliable for page unload)
-                // Fallback to fetch with no-cors if Beacon is not available (rare in modern browsers)
+                // Send Data
                 if (navigator.sendBeacon) {
-                    const success = navigator.sendBeacon(FORM_ACTION_URL, formData);
-                    console.log('Data beacon sent:', success);
+                    const success = navigator.sendBeacon(WEB_APP_URL, blob);
+                    console.log('Data beacon sent to GAS:', success);
                 } else {
-                    fetch(FORM_ACTION_URL, {
+                    // Fallback for older browsers (unlikely needed but good practice)
+                    fetch(WEB_APP_URL, {
                         method: 'POST',
-                        mode: 'no-cors', // Important for Google Forms
-                        body: formData
+                        mode: 'no-cors', // Important for GAS to avoid CORS errors in console
+                        body: payload,
+                        headers: { 'Content-Type': 'text/plain' }
                     }).catch(err => console.error('Data send failed:', err));
                 }
             }
 
             // 3. Event Listeners for Sending Data
             // 'visibilitychange' with 'hidden' is the most reliable event for mobile and desktop 
-            // to catch when a user leaves the page or switches tabs.
             document.addEventListener('visibilitychange', function() {
                 if (document.visibilityState === 'hidden') {
                     collectAndSend();
                 }
             });
 
-            // Backup: 'pagehide' is sometimes better for mobile browsers Safari/iOS
+            // Backup: 'pagehide' for Safari/iOS
             window.addEventListener('pagehide', function() {
                 collectAndSend();
             });
