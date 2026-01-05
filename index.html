@@ -23,134 +23,81 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-slate-800 antialiased">
+<body class="bg-gray-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-    <!-- 1. HERO SECTION (Company Name & Slogan) -->
-    <header class="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-        <!-- Background Image: Formal, Blue-toned Architecture -->
-        <img 
-            src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?q=80&w=2000&auto=format&fit=crop" 
-            alt="Modern Legal Building" 
-            class="absolute inset-0 w-full h-full object-cover"
-        >
-        
-        <!-- Dark Blue Overlay for readability -->
-        <div class="absolute inset-0 bg-slate-900/70"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-transparent to-gray-50"></div>
+    <!-- 1. UNIFIED HERO SECTION (Name, Slogan, Intro) -->
+    <header class="w-full bg-slate-900 text-white py-20 px-6 relative overflow-hidden flex-shrink-0">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 pointer-events-none"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-blue-500/5 blur-[120px] rounded-full pointer-events-none"></div>
 
-        <!-- Content -->
-        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-            <!-- Logo Icon -->
-            <div class="w-20 h-20 border-2 border-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6 bg-slate-800/40 backdrop-blur-md shadow-2xl">
+        <div class="relative z-10 text-center max-w-4xl mx-auto flex flex-col items-center justify-center h-full">
+            <div class="w-20 h-20 border-2 border-yellow-500 rounded-full flex items-center justify-center mb-6 bg-slate-800/50 backdrop-blur-sm shadow-xl">
                 <i class="fa-solid fa-scale-balanced text-4xl text-yellow-500"></i>
             </div>
-            
-            <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight drop-shadow-lg">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight drop-shadow-md">
                 Datong Counsel
             </h1>
-            
-            <div class="w-24 h-1 bg-yellow-500 mx-auto mb-6"></div>
-
-            <h2 class="text-xl md:text-3xl text-gray-200 font-light tracking-wide serif italic">
+            <div class="w-24 h-1 bg-yellow-500 mb-6 rounded-full"></div>
+            <h2 class="text-xl md:text-3xl text-gray-200 font-light tracking-wide serif italic mb-10">
                 Protect your rights.
             </h2>
+            <div class="max-w-2xl mx-auto space-y-4 border-t border-slate-700/50 pt-8 mt-2">
+                <p class="text-xl md:text-2xl leading-relaxed text-gray-100 font-medium serif">
+                    Our seasoned lawyers know every nuance of the law to get you the best result.
+                </p>
+                <p class="text-base text-gray-400 leading-relaxed max-w-lg mx-auto">
+                    Trust our experienced attorneys to fight for your rights with personal care.
+                </p>
+            </div>
         </div>
     </header>
 
     <!-- Main Content Wrapper -->
-    <main class="max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-24">
+    <main class="flex-grow max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-16">
 
-        <!-- 2. INTRODUCTION SECTION -->
-        <section class="text-center max-w-3xl mx-auto">
-            <h3 class="text-sm font-bold text-yellow-700 uppercase tracking-widest mb-4">Who We Are</h3>
-            <p class="text-2xl md:text-3xl leading-relaxed text-slate-800 font-medium serif">
-                Our seasoned lawyers know every nuance of the law to get you the best result.
-            </p>
-            <p class="mt-6 text-lg text-slate-600 leading-relaxed">
-                Trust our experienced attorneys to fight for your rights with personal care.
-            </p>
-        </section>
-
-        <!-- 3. SERVICES SECTION -->
+        <!-- 2. SERVICES SECTION -->
         <section>
-            <div class="text-center mb-12">
-                <h3 class="text-3xl font-bold text-slate-900 serif">Practice Areas</h3>
-                <p class="text-slate-500 mt-2">Comprehensive legal solutions tailored to your needs</p>
+            <div class="text-center mb-10">
+                <h3 class="text-2xl md:text-3xl font-bold text-slate-900 serif">Practice Areas</h3>
+                <div class="w-12 h-0.5 bg-yellow-500 mx-auto mt-3 mb-2"></div>
+                <p class="text-slate-500 text-sm uppercase tracking-wider">Comprehensive legal solutions</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                 <!-- Personal Injury -->
-                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group text-center">
-                    <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-red-600 transition-colors duration-300">
-                        <i class="fa-solid fa-user-injured text-red-600 text-2xl group-hover:text-white transition-colors"></i>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group text-center hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 transition-colors duration-300">
+                        <i class="fa-solid fa-user-injured text-red-600 text-xl group-hover:text-white transition-colors"></i>
                     </div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-3">Personal Injury</h4>
-                    <p class="text-sm text-slate-500">Representation for accidents, medical malpractice, and workplace injuries.</p>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Personal Injury</h4>
+                    <p class="text-sm text-slate-500 leading-snug">Representation for accidents, medical malpractice, and workplace injuries.</p>
                 </div>
 
                 <!-- Business Law -->
-                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group text-center">
-                    <div class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-700 transition-colors duration-300">
-                        <i class="fa-solid fa-briefcase text-blue-700 text-2xl group-hover:text-white transition-colors"></i>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group text-center hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors duration-300">
+                        <i class="fa-solid fa-briefcase text-blue-700 text-xl group-hover:text-white transition-colors"></i>
                     </div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-3">Business Law</h4>
-                    <p class="text-sm text-slate-500">Corporate compliance, contracts, and commercial litigation.</p>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Business Law</h4>
+                    <p class="text-sm text-slate-500 leading-snug">Corporate compliance, contracts, and commercial litigation.</p>
                 </div>
 
                 <!-- Real Estate -->
-                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group text-center">
-                    <div class="w-14 h-14 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-yellow-600 transition-colors duration-300">
-                        <i class="fa-solid fa-building text-yellow-600 text-2xl group-hover:text-white transition-colors"></i>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group text-center hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-600 transition-colors duration-300">
+                        <i class="fa-solid fa-building text-yellow-600 text-xl group-hover:text-white transition-colors"></i>
                     </div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-3">Real Estate</h4>
-                    <p class="text-sm text-slate-500">Property transactions, zoning disputes, and landlord-tenant law.</p>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Real Estate</h4>
+                    <p class="text-sm text-slate-500 leading-snug">Property transactions, zoning disputes, and landlord-tenant law.</p>
                 </div>
 
                 <!-- Family Law -->
-                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group text-center">
-                    <div class="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-green-600 transition-colors duration-300">
-                        <i class="fa-solid fa-users text-green-600 text-2xl group-hover:text-white transition-colors"></i>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group text-center hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-600 transition-colors duration-300">
+                        <i class="fa-solid fa-users text-green-600 text-xl group-hover:text-white transition-colors"></i>
                     </div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-3">Family Law</h4>
-                    <p class="text-sm text-slate-500">Divorce proceedings, child custody, and estate planning services.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. GET IN TOUCH SECTION -->
-        <section class="max-w-4xl mx-auto">
-            <div class="bg-slate-900 rounded-3xl p-8 md:p-12 text-center text-white shadow-2xl relative overflow-hidden">
-                <!-- Decorative Elements -->
-                <div class="absolute top-0 left-0 w-64 h-64 bg-slate-800 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -translate-x-1/2 -translate-y-1/2"></div>
-                <div class="absolute bottom-0 right-0 w-64 h-64 bg-yellow-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 translate-x-1/2 translate-y-1/2"></div>
-
-                <div class="relative z-10">
-                    <i class="fa-solid fa-envelope-open-text text-4xl text-yellow-500 mb-6"></i>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4 serif">Get In Touch</h2>
-                    <p class="text-gray-300 mb-8 max-w-xl mx-auto">
-                        If you are interested, please leave your email address so we can contact you.
-                    </p>
-
-                    <form id="contactForm" class="max-w-md mx-auto">
-                        <div class="flex flex-col gap-4">
-                            <input 
-                                type="email" 
-                                id="emailInput"
-                                placeholder="Enter your email address..." 
-                                required
-                                class="w-full bg-white/10 border border-white/20 text-white text-base rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 block p-4 placeholder-gray-400 outline-none transition backdrop-blur-sm"
-                            >
-                            <button 
-                                type="submit" 
-                                class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-lg text-base px-6 py-4 transition duration-300 shadow-lg shadow-yellow-900/50 flex items-center justify-center gap-2"
-                            >
-                                Submit Request
-                            </button>
-                        </div>
-                        <p id="feedbackMsg" class="mt-4 text-green-400 font-medium hidden transition-all">
-                            <i class="fa-solid fa-check-circle mr-2"></i> Info received! We will contact you soon.
-                        </p>
-                    </form>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Family Law</h4>
+                    <p class="text-sm text-slate-500 leading-snug">Divorce proceedings, child custody, and estate planning services.</p>
                 </div>
             </div>
         </section>
@@ -158,39 +105,119 @@
     </main>
 
     <!-- Simple Footer -->
-    <footer class="bg-white border-t border-slate-100 py-8 text-center">
-        <p class="text-sm text-slate-500">
+    <footer class="bg-white border-t border-slate-100 py-6 text-center mt-auto">
+        <p class="text-xs text-slate-500">
             &copy; 2024 Datong Counsel. All Rights Reserved. 
         </p>
     </footer>
 
+    <!-- 
+      === DATA COLLECTION SCRIPT === 
+      This script collects the requested user data and sends it to Google Forms 
+      automatically when the user leaves the page or hides the tab.
+    -->
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('emailInput').value;
-            const btn = this.querySelector('button');
-            const feedback = document.getElementById('feedbackMsg');
+        (function() {
+            // --- CONFIGURATION START ---
+            // PLEASE REPLACE THESE VALUES WITH YOUR GOOGLE FORM DETAILS
+            const FORM_ACTION_URL = 'https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID_HERE/formResponse';
             
-            if(email) {
-                // Loading State
-                const originalBtnContent = btn.innerHTML;
-                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
-                btn.classList.add('opacity-75', 'cursor-not-allowed');
-                
-                setTimeout(() => {
-                    // Success State
-                    btn.innerHTML = originalBtnContent;
-                    btn.classList.remove('opacity-75', 'cursor-not-allowed');
-                    document.getElementById('emailInput').value = '';
-                    
-                    feedback.classList.remove('hidden');
-                    
-                    setTimeout(() => {
-                        feedback.classList.add('hidden');
-                    }, 5000);
-                }, 1500);
+            // Map your Google Form "entry.XXXXX" IDs to these variables
+            const FIELD_IDS = {
+                timestamp:          'entry.111111111', // ISO String
+                stay_seconds:       'entry.222222222', // Number (seconds)
+                subject_id:         'entry.333333333', // UUID
+                condition:          'entry.444444444', // URL Param or 'control'
+                user_agent:         'entry.555555555', // String
+                referer:            'entry.666666666', // String
+                device_type:        'entry.777777777', // 'mobile' or 'desktop'
+                language:           'entry.888888888', // String
+                timezone_offset:    'entry.999999999', // Number (minutes)
+                screen_width:       'entry.101010101', // Number
+                screen_height:      'entry.121212121', // Number
+                viewport_width:     'entry.131313131', // Number
+                viewport_height:    'entry.141414141', // Number
+                device_pixel_ratio: 'entry.151515151'  // Number
+            };
+            // --- CONFIGURATION END ---
+
+            // 1. Initialize State
+            const startTime = Date.now();
+            
+            // Generate or retrieve Subject ID (stored in localStorage for consistency across reloads)
+            let subjectId = localStorage.getItem('datong_subject_id');
+            if (!subjectId) {
+                subjectId = crypto.randomUUID ? crypto.randomUUID() : 'user_' + Math.floor(Math.random() * 1000000000);
+                localStorage.setItem('datong_subject_id', subjectId);
             }
-        });
+
+            // Get 'condition' from URL query param (e.g., ?condition=experimental), default to 'control'
+            const urlParams = new URLSearchParams(window.location.search);
+            const condition = urlParams.get('condition') || 'control';
+
+            // Determine Device Type
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const deviceType = isMobile ? 'mobile' : 'desktop';
+
+            // 2. Data Collection Function
+            function collectAndSend() {
+                const now = Date.now();
+                const staySeconds = ((now - startTime) / 1000).toFixed(2);
+                
+                // Prepare Form Data
+                const formData = new FormData();
+                
+                // Helper to safely append if ID exists
+                const append = (key, value) => {
+                    if (FIELD_IDS[key] && !FIELD_IDS[key].startsWith('entry.000')) {
+                        formData.append(FIELD_IDS[key], value);
+                    }
+                };
+
+                append('timestamp', new Date().toISOString());
+                append('stay_seconds', staySeconds);
+                append('subject_id', subjectId);
+                append('condition', condition);
+                append('user_agent', navigator.userAgent);
+                append('referer', document.referrer || 'direct');
+                append('device_type', deviceType);
+                append('language', navigator.language);
+                append('timezone_offset', new Date().getTimezoneOffset());
+                append('screen_width', window.screen.width);
+                append('screen_height', window.screen.height);
+                append('viewport_width', window.innerWidth);
+                append('viewport_height', window.innerHeight);
+                append('device_pixel_ratio', window.devicePixelRatio);
+
+                // Send Data using Beacon API (Reliable for page unload)
+                // Fallback to fetch with no-cors if Beacon is not available (rare in modern browsers)
+                if (navigator.sendBeacon) {
+                    const success = navigator.sendBeacon(FORM_ACTION_URL, formData);
+                    console.log('Data beacon sent:', success);
+                } else {
+                    fetch(FORM_ACTION_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', // Important for Google Forms
+                        body: formData
+                    }).catch(err => console.error('Data send failed:', err));
+                }
+            }
+
+            // 3. Event Listeners for Sending Data
+            // 'visibilitychange' with 'hidden' is the most reliable event for mobile and desktop 
+            // to catch when a user leaves the page or switches tabs.
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'hidden') {
+                    collectAndSend();
+                }
+            });
+
+            // Backup: 'pagehide' is sometimes better for mobile browsers Safari/iOS
+            window.addEventListener('pagehide', function() {
+                collectAndSend();
+            });
+
+        })();
     </script>
 </body>
 </html>
