@@ -21,26 +21,43 @@
         h1, h2, h3, .serif {
             font-family: 'Noto Serif', serif;
         }
+        /* Smooth scrolling for the whole page */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-    <!-- 1. UNIFIED HERO SECTION (Name, Slogan, Intro) -->
+    <!-- 1. HERO SECTION (Unified Brand & Intro) -->
     <header class="w-full bg-slate-900 text-white py-20 px-6 relative overflow-hidden flex-shrink-0">
+        
+        <!-- Background decorative effects -->
         <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 pointer-events-none"></div>
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-blue-500/5 blur-[120px] rounded-full pointer-events-none"></div>
 
+        <!-- Brand Content -->
         <div class="relative z-10 text-center max-w-4xl mx-auto flex flex-col items-center justify-center h-full">
+            
+            <!-- Logo Icon -->
             <div class="w-20 h-20 border-2 border-yellow-500 rounded-full flex items-center justify-center mb-6 bg-slate-800/50 backdrop-blur-sm shadow-xl">
                 <i class="fa-solid fa-scale-balanced text-4xl text-yellow-500"></i>
             </div>
+            
+            <!-- Company Name -->
             <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight drop-shadow-md">
                 Datong Counsel
             </h1>
+            
+            <!-- Visual Divider -->
             <div class="w-24 h-1 bg-yellow-500 mb-6 rounded-full"></div>
+
+            <!-- Slogan -->
             <h2 class="text-xl md:text-3xl text-gray-200 font-light tracking-wide serif italic mb-10">
                 Protect your rights.
             </h2>
+
+            <!-- Integrated Professional Introduction -->
             <div class="max-w-2xl mx-auto space-y-4 border-t border-slate-700/50 pt-8 mt-2">
                 <p class="text-xl md:text-2xl leading-relaxed text-gray-100 font-medium serif">
                     Our seasoned lawyers know every nuance of the law to get you the best result.
@@ -52,18 +69,18 @@
         </div>
     </header>
 
-    <!-- Main Content Wrapper -->
+    <!-- 2. MAIN CONTENT (Practice Areas) -->
     <main class="flex-grow max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-16">
 
-        <!-- 2. SERVICES SECTION -->
         <section>
             <div class="text-center mb-10">
                 <h3 class="text-2xl md:text-3xl font-bold text-slate-900 serif">Practice Areas</h3>
                 <div class="w-12 h-0.5 bg-yellow-500 mx-auto mt-3 mb-2"></div>
-                <p class="text-slate-500 text-sm uppercase tracking-wider">Comprehensive legal solutions</p>
+                <p class="text-slate-500 text-sm uppercase tracking-wider">Comprehensive Legal Solutions</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Personal Injury -->
                 <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group text-center hover:-translate-y-1">
                     <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 transition-colors duration-300">
@@ -104,49 +121,46 @@
 
     </main>
 
-    <!-- Simple Footer -->
-    <footer class="bg-white border-t border-slate-100 py-6 text-center mt-auto">
-        <p class="text-xs text-slate-500">
-            &copy; 2024 Datong Counsel. All Rights Reserved. 
+    <!-- 3. FOOTER -->
+    <footer class="bg-white border-t border-slate-100 py-8 text-center mt-auto">
+        <p class="text-xs text-slate-400">
+            &copy; 2024 Datong Counsel. All Rights Reserved.
         </p>
     </footer>
 
     <!-- 
-      === DATA COLLECTION SCRIPT (Google Apps Script Version) === 
-      This script collects the requested user data and sends it to your Google Web App 
-      automatically when the user leaves the page or hides the tab.
+      === ADVANCED DATA COLLECTION SCRIPT === 
+      This script automatically collects 14 data points and sends them 
+      to your Google Web App when the user closes or hides the page.
     -->
     <script>
         (function() {
-            // --- CONFIGURATION START ---
-            // Updated with your specific Web App URL
-            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxop2tUnVd1Ah2ynyJ49zCSOJws2eq71f-o3rc_NrzXLvDxWmXkt7RrcNeLXym4Ke4t/exec';
-            // --- CONFIGURATION END ---
+            // Your Google Apps Script Web App URL
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzdAVpQXl2dwoYgdk5thBFId9oDjwD8jWjsC0ddXqHxi1Nzg976kKU9HiDNjZfB35c/exec';
 
-            // 1. Initialize State
+            // Initial State
             const startTime = Date.now();
             
-            // Generate or retrieve Subject ID (stored in localStorage for consistency across reloads)
+            // Generate or Retrieve persistent Subject ID
             let subjectId = localStorage.getItem('datong_subject_id');
             if (!subjectId) {
                 subjectId = crypto.randomUUID ? crypto.randomUUID() : 'user_' + Math.floor(Math.random() * 1000000000);
                 localStorage.setItem('datong_subject_id', subjectId);
             }
 
-            // Get 'condition' from URL query param (e.g., ?condition=experimental), default to 'control'
+            // Extract condition from URL or default to 'control'
             const urlParams = new URLSearchParams(window.location.search);
             const condition = urlParams.get('condition') || 'control';
 
-            // Determine Device Type
+            // Device Type Logic
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             const deviceType = isMobile ? 'mobile' : 'desktop';
 
-            // 2. Data Collection Function
-            function collectAndSend() {
+            // Collection Function
+            function collectAndSendData() {
                 const now = Date.now();
                 const staySeconds = ((now - startTime) / 1000).toFixed(2);
                 
-                // Construct the data object with keys matching your needs
                 const data = {
                     timestamp:          new Date().toISOString(),
                     stay_seconds:       staySeconds,
@@ -164,39 +178,32 @@
                     device_pixel_ratio: window.devicePixelRatio
                 };
 
-                // Prepare Payload as JSON string
                 const payload = JSON.stringify(data);
-                
-                // Use sendBeacon with a Blob to send as text/plain. 
-                // This prevents CORS preflight requests and is handled easily by GAS `e.postData.contents`.
                 const blob = new Blob([payload], {type: 'text/plain'});
 
-                // Send Data
+                // Attempt to use sendBeacon (best for background transmission)
                 if (navigator.sendBeacon) {
-                    const success = navigator.sendBeacon(WEB_APP_URL, blob);
-                    console.log('Data beacon sent to GAS:', success);
+                    navigator.sendBeacon(WEB_APP_URL, blob);
                 } else {
-                    // Fallback for older browsers (unlikely needed but good practice)
+                    // Fallback to fetch with no-cors
                     fetch(WEB_APP_URL, {
                         method: 'POST',
-                        mode: 'no-cors', // Important for GAS to avoid CORS errors in console
+                        mode: 'no-cors',
                         body: payload,
                         headers: { 'Content-Type': 'text/plain' }
-                    }).catch(err => console.error('Data send failed:', err));
+                    });
                 }
             }
 
-            // 3. Event Listeners for Sending Data
-            // 'visibilitychange' with 'hidden' is the most reliable event for mobile and desktop 
+            // Trigger events for background collection
             document.addEventListener('visibilitychange', function() {
                 if (document.visibilityState === 'hidden') {
-                    collectAndSend();
+                    collectAndSendData();
                 }
             });
 
-            // Backup: 'pagehide' for Safari/iOS
             window.addEventListener('pagehide', function() {
-                collectAndSend();
+                collectAndSendData();
             });
 
         })();
