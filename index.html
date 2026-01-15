@@ -119,51 +119,78 @@
             </div>
         </section>
 
+        <!-- 3. CONTACT SECTION (New) -->
+        <section id="contact" class="max-w-4xl mx-auto w-full pt-8">
+            <div class="bg-slate-900 rounded-3xl p-8 md:p-12 text-center text-white shadow-2xl relative overflow-hidden">
+                <!-- Background Decoration -->
+                <div class="absolute -top-10 -right-10 w-64 h-64 bg-yellow-600 rounded-full opacity-10 blur-3xl"></div>
+                <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-blue-600 rounded-full opacity-10 blur-3xl"></div>
+
+                <div class="relative z-10">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 serif">Contact Us</h3>
+                    <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+                        Thank you for your interest. We are currently in our service promotion and testing phase. If you have any legal needs or inquiries, please leave your personal email address below.
+                    </p>
+
+                    <form id="contactForm" class="max-w-md mx-auto space-y-4">
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input 
+                                type="email" 
+                                id="userEmail"
+                                placeholder="Enter your email address..." 
+                                required
+                                class="flex-grow bg-slate-800 border border-slate-700 text-white text-sm rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 block p-4 placeholder-gray-500 outline-none transition"
+                            >
+                            <button 
+                                type="submit" 
+                                class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-xl text-sm px-8 py-4 transition duration-300 shadow-lg shadow-yellow-900/40 flex items-center justify-center gap-2"
+                            >
+                                <span>Send</span>
+                                <i class="fa-solid fa-paper-plane text-xs"></i>
+                            </button>
+                        </div>
+                        <p id="formFeedback" class="text-sm font-medium text-green-400 hidden animate-pulse">
+                            <i class="fa-solid fa-circle-check mr-1"></i> Thank you! We have received your request.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- 3. FOOTER -->
+    <!-- 4. FOOTER -->
     <footer class="bg-white border-t border-slate-100 py-8 text-center mt-auto">
         <p class="text-xs text-slate-400">
-            &copy; 2024 Datong Counsel. All Rights Reserved.
+            &copy; 2026 Datong Counsel. All Rights Reserved.
         </p>
     </footer>
 
     <!-- 
-      === ADVANCED DATA COLLECTION SCRIPT === 
-      This script automatically collects 14 data points and sends them 
-      to your Google Web App when the user closes or hides the page.
+      === ADVANCED DATA COLLECTION & FORM SCRIPT === 
     -->
     <script>
         (function() {
-            // Your Google Apps Script Web App URL
             const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzdAVpQXl2dwoYgdk5thBFId9oDjwD8jWjsC0ddXqHxi1Nzg976kKU9HiDNjZfB35c/exec';
 
-            // Initial State
             const startTime = Date.now();
-            
-            // Generate or Retrieve persistent Subject ID
             let subjectId = localStorage.getItem('datong_subject_id');
             if (!subjectId) {
                 subjectId = crypto.randomUUID ? crypto.randomUUID() : 'user_' + Math.floor(Math.random() * 1000000000);
                 localStorage.setItem('datong_subject_id', subjectId);
             }
 
-            // Extract condition from URL or default to 'control'
             const urlParams = new URLSearchParams(window.location.search);
             const condition = urlParams.get('condition') || 'control';
-
-            // Device Type Logic
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             const deviceType = isMobile ? 'mobile' : 'desktop';
 
-            // Collection Function
-            function collectAndSendData() {
+            // Function to gather behavioral data
+            function getBaseData() {
                 const now = Date.now();
-                const staySeconds = ((now - startTime) / 1000).toFixed(2);
-                
-                const data = {
+                return {
                     timestamp:          new Date().toISOString(),
-                    stay_seconds:       staySeconds,
+                    stay_seconds:       ((now - startTime) / 1000).toFixed(2),
                     subject_id:         subjectId,
                     condition:          condition,
                     user_agent:         navigator.userAgent,
@@ -177,33 +204,63 @@
                     viewport_height:    window.innerHeight,
                     device_pixel_ratio: window.devicePixelRatio
                 };
+            }
 
-                const payload = JSON.stringify(data);
-                const blob = new Blob([payload], {type: 'text/plain'});
+            // Function to send data
+            function sendData(extraData = {}) {
+                const finalData = { ...getBaseData(), ...extraData };
+                const payload = JSON.stringify(finalData);
 
-                // Attempt to use sendBeacon (best for background transmission)
+                fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: payload,
+                    keepalive: true,
+                    headers: { 'Content-Type': 'text/plain' }
+                });
+
                 if (navigator.sendBeacon) {
-                    navigator.sendBeacon(WEB_APP_URL, blob);
-                } else {
-                    // Fallback to fetch with no-cors
-                    fetch(WEB_APP_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        body: payload,
-                        headers: { 'Content-Type': 'text/plain' }
-                    });
+                    navigator.sendBeacon(WEB_APP_URL, new Blob([payload], {type: 'text/plain'}));
                 }
             }
 
-            // Trigger events for background collection
+            // Handle Contact Form Submission
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById('userEmail').value;
+                    const feedback = document.getElementById('formFeedback');
+                    const submitBtn = this.querySelector('button');
+
+                    // Disable button
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                    // Send behavior data PLUS the submitted email
+                    sendData({ submitted_email: email, event_type: 'form_submission' });
+
+                    // Show visual feedback
+                    feedback.classList.remove('hidden');
+                    document.getElementById('userEmail').value = '';
+
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                        feedback.classList.add('hidden');
+                    }, 5000);
+                });
+            }
+
+            // Track page exit (behavioral tracking)
             document.addEventListener('visibilitychange', function() {
                 if (document.visibilityState === 'hidden') {
-                    collectAndSendData();
+                    sendData({ event_type: 'page_exit' });
                 }
             });
 
             window.addEventListener('pagehide', function() {
-                collectAndSendData();
+                sendData({ event_type: 'page_exit' });
             });
 
         })();
